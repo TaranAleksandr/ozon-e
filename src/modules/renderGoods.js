@@ -2,9 +2,9 @@ const renderGoods = (goods) => {
 
   const goodsWrapper = document.querySelector('.goods')
 
-  goodsWrapper.innerHTML = ''
+  goodsWrapper.innerHTML = '' //исключает отрисовку одного и того же массива при многократном вызове функции
 
-  goods.forEach((goodsItem) => {
+  goods.forEach((goodsItem) => {  //отрисовка карточки по переданному массиву
     goodsWrapper.insertAdjacentHTML('beforeend', `
                 <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                   <div class="card">

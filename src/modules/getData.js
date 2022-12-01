@@ -1,7 +1,7 @@
-const getData = () => {
-  return fetch('https://ozon-e-db-default-rtdb.europe-west1.firebasedatabase.app/goods.json')
-    .then((response) => {
-      return response.json()
+const getData = (str) => {
+  return fetch(`https://ozon-e-db-default-rtdb.europe-west1.firebasedatabase.app/goods.json?${str ? `search=${str}` : ''}`)
+    .then((response) => { //ответ сервера
+      return response.json() //получение промиса из ответа сервера
     })
 
 }
