@@ -4,8 +4,6 @@ const cart = () => {
   const modalCart = document.querySelector('.cart')
   const modalClose = modalCart.querySelector('.cart-close')
 
-  console.dir(modalCart);
-
   const openCart = () => {
     modalCart.style.display = 'flex'
   }
