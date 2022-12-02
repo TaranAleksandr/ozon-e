@@ -1,14 +1,16 @@
-const renderGoods = (goods) => {
+const renderCart = (goods) => {
 
-  const goodsWrapper = document.querySelector('.goods')
+  const cartWrapper = document.querySelector('.cart-wrapper')
 
-  localStorage.setItem('goods', JSON.stringify(goods))
 
-  goodsWrapper.innerHTML = '' //исключает отрисовку одного и того же массива при многократном вызове функции
+  cartWrapper.innerHTML = '' //исключает отрисовку одного и того же массива при многократном вызове функции
 
-  goods.forEach((goodsItem) => {  //отрисовка карточки по переданному массиву
-    goodsWrapper.insertAdjacentHTML('beforeend', `
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+  if (goods.length === 0) {
+    cartWrapper.insertAdjacentHTML('beforeend', `
+    <div id='cart-empty'>Ваша корзина пуста</div>`)
+  } else {
+    goods.forEach((goodsItem) => {  //отрисовка карточки по переданному массиву
+      cartWrapper.insertAdjacentHTML('beforeend', `
                   <div class="card" data-key="${goodsItem.id}">
                   ${goodsItem.sale ? '<div class="card-sale">🔥Hot Sale🔥</div>' : ''}
                     <div class="card-img-wrapper">
@@ -24,12 +26,15 @@ const renderGoods = (goods) => {
                       <h5 class="card-title">
                         ${goodsItem.title}
                       </h5>
-                      <button class="btn btn-primary">В корзину</button>
+                      <button class="btn btn-primary">Удалить</button>
                     </div>
                   </div>
-                </div>
+                
     `)
-  })
+    })
+  }
+
+
 }
 
-export default renderGoods
+export default renderCart
