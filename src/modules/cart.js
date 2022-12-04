@@ -10,7 +10,16 @@ const cart = () => {
   const cartTotal = modalCart.querySelector('.cart-total > span')
   const cartWrapper = document.querySelector('.cart-wrapper')
   const cartSendBtn = modalCart.querySelector('.cart-confirm')
+  const cartCounter = document.querySelector('.counter')
 
+
+  const cartCount = () => {
+    const goodsCount = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')).length : []
+
+    cartCounter.textContent = goodsCount
+  }
+
+  cartCount()
 
   const openCart = () => {
     const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
@@ -22,6 +31,7 @@ const cart = () => {
     }, 0)
 
   }
+
   const closeCart = () => {
     modalCart.style.display = ''
   }
@@ -35,15 +45,19 @@ const cart = () => {
       const key = card.dataset.key
       const goods = JSON.parse(localStorage.getItem('goods'))
       const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+
       const goodItem = goods.find((item) => {
         return item.id === +key
       })
-
       cart.push(goodItem)
       localStorage.setItem('cart', JSON.stringify(cart))
 
+      const goodsCount = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')).length : []
+
+      cartCounter.textContent = goodsCount
     }
   })
+
 
   cartWrapper.addEventListener('click', (event) => {
     if (event.target.classList.contains('btn-primary')) {
@@ -57,12 +71,15 @@ const cart = () => {
       cart.splice(index, 1)
 
       localStorage.setItem('cart', JSON.stringify(cart))
+      const goodsCount = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')).length : []
 
       renderCart(cart)
 
       cartTotal.textContent = cart.reduce((sum, goodItem) => {
         return sum + goodItem.price
       }, 0)
+
+      cartCounter.textContent = goodsCount
     }
   })
 
@@ -75,6 +92,9 @@ const cart = () => {
       cartTotal.textContent = 0
     })
   })
+
+
+
 }
 
 export default cart
